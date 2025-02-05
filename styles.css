@@ -1,0 +1,366 @@
+:root {
+    --primary: #00B8A9;      /* Fresh teal */
+    --secondary: #F8615A;    /* Coral red */
+    --background: #F7FDFC;   /* Light mint tint */
+    --surface: #FFFFFF;      /* Pure white */
+    --text: #1B2D45;        /* Deep blue-grey */
+    --text-secondary: #5C7184; /* Medium blue-grey */
+}
+
+[data-theme="dark"] {
+    --primary: #00D4C4;
+    --secondary: #FF7A74;
+    --background: #1A1A1A;
+    --surface: #2D2D2D;
+    --text: #FFFFFF;
+    --text-secondary: #BBBBBB;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.container {
+    text-align: center;
+    background-color: var(--surface);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    width: 90%;
+    max-width: 400px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text);
+}
+
+.timer {
+    font-size: 5rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    color: var(--primary);
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+}
+
+.controls {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.controls button {
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+}
+
+.controls button:active {
+    transform: translateY(0);
+}
+
+#mode-toggle {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.mode-toggle button.work-mode {
+    background-color: var(--primary);
+    color: white;
+}
+
+.mode-toggle button.break-mode {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.mode-toggle button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+#mode-text {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Add animation for mode switching */
+.timer, #mode-text, #mode-toggle {
+    transition: all 0.3s ease;
+}
+
+/* Specific button states */
+#pause {
+    background-color: var(--text-secondary);
+}
+
+#reset {
+    background-color: var(--text-secondary);
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--background);
+    transition: all 0.3s ease;
+}
+
+.main-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.timer-section {
+    flex: 1;
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: 24px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+}
+
+.task-section {
+    width: 300px;
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: 24px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+}
+
+.timer-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.controls button, 
+#theme-toggle-btn, 
+#increase-time, 
+#decrease-time {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.controls button:hover,
+#theme-toggle-btn:hover,
+#increase-time:hover,
+#decrease-time:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.controls button i,
+#theme-toggle-btn i,
+#increase-time i,
+#decrease-time i {
+    font-size: 1.4rem;
+    line-height: 1;
+    width: auto;
+    height: auto;
+}
+
+.break-icon {
+    display: none;
+}
+
+.break-mode .work-icon {
+    display: none;
+}
+
+.break-mode .break-icon {
+    display: inline;
+}
+
+.task-input {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.task-input textarea {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid var(--text-secondary);
+    border-radius: 8px;
+    background-color: var(--surface);
+    color: var(--text);
+}
+
+.task-history {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.quote {
+    margin-top: 2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+/* Add these styles to your existing CSS */
+.task-item {
+    background-color: var(--surface);
+    border: 1px solid var(--text-secondary);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.task-item p {
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+}
+
+.task-item small {
+    color: var(--text-secondary);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#task-list {
+    margin-top: 1rem;
+}
+
+.task-input textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Ensure icons are centered in buttons */
+button i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.mode-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--text-secondary);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.mode-button i {
+    font-size: 1.2rem;
+}
+
+.mode-button span {
+    margin-left: 0.5rem;
+}
+
+.mode-button.active {
+    background-color: var(--primary);
+}
+
+#work-mode.active {
+    background-color: var(--primary);
+}
+
+#break-mode.active {
+    background-color: var(--secondary);
+}
+
+.mode-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Update the timer controls spacing */
+.timer-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+/* Ensure other circular buttons remain centered */
+.controls button, 
+#theme-toggle-btn, 
+#increase-time, 
+#decrease-time {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+} 

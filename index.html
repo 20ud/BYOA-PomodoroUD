@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="theme-toggle">
+            <button id="theme-toggle-btn">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="main-container">
+            <div class="timer-section">
+                <h1>Pomodoro Timer</h1>
+                <div class="mode-toggle">
+                    <button id="work-mode" class="mode-button active">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Work</span>
+                    </button>
+                    <button id="break-mode" class="mode-button">
+                        <i class="fas fa-coffee"></i>
+                        <span>Break</span>
+                    </button>
+                </div>
+                <div class="timer-controls">
+                    <button id="decrease-time"><i class="fas fa-minus"></i></button>
+                    <div class="timer">
+                        <span id="minutes">25</span>:<span id="seconds">00</span>
+                    </div>
+                    <button id="increase-time"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="controls">
+                    <button id="start"><i class="fas fa-play"></i></button>
+                    <button id="pause"><i class="fas fa-pause"></i></button>
+                </div>
+            </div>
+            <div class="task-section">
+                <h2>Current Task</h2>
+                <div class="task-input">
+                    <textarea id="task-description" placeholder="What are you working on?"></textarea>
+                    <button id="save-task"><i class="fas fa-save"></i></button>
+                </div>
+                <div class="task-history">
+                    <h3>Task History</h3>
+                    <div id="task-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
