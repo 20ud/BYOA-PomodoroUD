@@ -45,6 +45,7 @@ function startTimer() {
     if (timerId === null) {
         if (isWorkTime) {
             focusModal.style.display = 'flex';
+            focusModal.classList.add('show');
         } else {
             // Start break timer directly without focus prompt
             timerId = setInterval(() => {
@@ -78,8 +79,9 @@ function startFocusSession() {
         focusText.textContent = focusDescription;
         currentFocus.classList.remove('hidden');
         
-        // Start the timer
+        // Hide modal and clear input
         focusModal.style.display = 'none';
+        focusModal.classList.remove('show');
         focusInput.value = '';
         
         // Start the actual timer
@@ -88,13 +90,9 @@ function startFocusSession() {
             updateDisplay();
             
             if (timeLeft === 0) {
-                alert(isWorkTime ? 'Work time is over! Take a break!' : 'Break is over! Back to work!');
+                alert('Work time is over! Take a break!');
                 currentFocus.classList.add('hidden');
-                if (isWorkTime) {
-                    setBreakMode();
-                } else {
-                    setWorkMode();
-                }
+                setBreakMode();
             }
         }, 1000);
         startButton.disabled = true;
@@ -157,12 +155,17 @@ themeToggleBtn.addEventListener('click', () => {
 });
 
 // Add event listeners
+startButton.addEventListener('click', startTimer);
+pauseButton.addEventListener('click', pauseTimer);
+workModeBtn.addEventListener('click', setWorkMode);
+breakModeBtn.addEventListener('click', setBreakMode);
 startFocusBtn.addEventListener('click', startFocusSession);
 
 // Allow closing modal with Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && focusModal.style.display === 'flex') {
         focusModal.style.display = 'none';
+        focusModal.classList.remove('show');
         focusInput.value = '';
     }
 });
@@ -174,13 +177,6 @@ focusInput.addEventListener('keydown', (e) => {
         startFocusSession();
     }
 });
-
-// Add these event listeners at the bottom of your script
-startButton.addEventListener('click', startTimer);
-pauseButton.addEventListener('click', pauseTimer);
-workModeBtn.addEventListener('click', setWorkMode);
-breakModeBtn.addEventListener('click', setBreakMode);
-startFocusBtn.addEventListener('click', startFocusSession);
 
 // Initialize
 setWorkMode();

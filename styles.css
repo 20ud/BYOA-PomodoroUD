@@ -379,11 +379,17 @@ button i {
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.modal.show {
+    opacity: 1;
 }
 
 .modal-content {
     background-color: var(--surface);
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 16px;
     width: 90%;
     max-width: 400px;
@@ -398,25 +404,17 @@ button i {
 }
 
 .modal-content textarea {
+    margin: 1rem 0 1.5rem 0;
+    padding: 1rem;
     width: 100%;
     box-sizing: border-box;
-    padding: 1rem;
-    border: 1px solid var(--text-secondary);
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    min-height: 120px;
-    resize: vertical;
-    font-size: 1rem;
-    background-color: var(--surface);
-    color: var(--text);
-    font-family: inherit;
-    line-height: 1.5;
 }
 
 .modal-content textarea::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.7;
     padding: 0;
+    opacity: 0.7;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
 }
 
 .modal-content button {
@@ -462,10 +460,10 @@ const currentFocus = document.getElementById('current-focus');
 const focusText = document.getElementById('focus-text');
 
 /* Modify the startTimer function */
-function startTimer() {
-    if (timerId === null) {
-        focusModal.style.display = 'flex';
-    }
+.start-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Add new focus handling functions */
