@@ -1,11 +1,12 @@
 :root {
-    --primary:purple;    
+    --primary: #000ed4;    
     --secondary: #F8615A;    /* Coral red */
     --background: #F7FDFC;   /* Light mint tint */
     --surface: #FFFFFF;      /* Pure white */
     --text: #1B2D45;        /* Deep blue-grey */
     --text-secondary: #5C7184; /* Medium blue-grey */
 }
+
 
 [data-theme="dark"] {
     --primary: #00D4C4;
@@ -138,19 +139,20 @@ h1 {
 
 .main-container {
     display: flex;
-    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
 }
 
 .timer-section {
-    flex: 1;
     background-color: var(--surface);
-    padding: 2rem;
+    padding: 3rem;
     border-radius: 24px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
 }
 
 .task-section {
@@ -363,4 +365,179 @@ button i {
     align-items: center;
     justify-content: center;
     padding: 0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal-content {
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+.modal-content textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border: 1px solid var(--text-secondary);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    min-height: 120px;
+    resize: vertical;
+    font-size: 1rem;
+    background-color: var(--surface);
+    color: var(--text);
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.modal-content textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+    padding: 0;
+}
+
+.modal-content button {
+    background-color: #0037ff;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+.modal-content button:hover {
+    background-color: #002ed4;
+}
+
+.current-focus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.current-focus i {
+    color: var(--primary);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Add these DOM elements to your existing elements section */
+const focusModal = document.getElementById('focus-modal');
+const focusInput = document.getElementById('focus-input');
+const startFocusBtn = document.getElementById('start-focus');
+const currentFocus = document.getElementById('current-focus');
+const focusText = document.getElementById('focus-text');
+
+/* Modify the startTimer function */
+function startTimer() {
+    if (timerId === null) {
+        focusModal.style.display = 'flex';
+    }
+}
+
+/* Add new focus handling functions */
+function startFocusSession() {
+    const focusDescription = focusInput.value.trim();
+    if (focusDescription) {
+        /* Save to task history */
+        const task = {
+            description: focusDescription,
+            timestamp: new Date().toISOString(),
+            mode: isWorkTime ? 'work' : 'break'
+        };
+        tasks.unshift(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        
+        /* Display current focus */
+        focusText.textContent = focusDescription;
+        currentFocus.classList.remove('hidden');
+        
+        /* Start the timer */
+        focusModal.style.display = 'none';
+        focusInput.value = '';
+        
+        /* Start the actual timer */
+        timerId = setInterval(() => {
+            timeLeft--;
+            updateDisplay();
+            
+            if (timeLeft === 0) {
+                alert(isWorkTime ? 'Work time is over! Take a break!' : 'Break is over! Back to work!');
+                currentFocus.classList.add('hidden');
+                if (isWorkTime) {
+                    setBreakMode();
+                } else {
+                    setWorkMode();
+                }
+            }
+        }, 1000);
+        startButton.disabled = true;
+        pauseButton.disabled = false;
+        updateTaskList();
+    }
+}
+
+/* Add event listeners */
+startFocusBtn.addEventListener('click', startFocusSession);
+
+function setWorkMode() {
+    clearInterval(timerId);
+    timerId = null;
+    isWorkTime = true;
+    timeLeft = WORK_TIME;
+    workModeBtn.classList.add('active');
+    breakModeBtn.classList.remove('active');
+    startButton.disabled = false;
+    currentFocus.classList.add('hidden');
+    updateDisplay();
+}
+
+function setBreakMode() {
+    clearInterval(timerId);
+    timerId = null;
+    isWorkTime = false;
+    timeLeft = BREAK_TIME;
+    breakModeBtn.classList.add('active');
+    workModeBtn.classList.remove('active');
+    startButton.disabled = false;
+    currentFocus.classList.add('hidden');
+    updateDisplay();
+}
+
+/* Add this to ensure proper box model for all elements */
+* {
+    box-sizing: border-box;
 } 

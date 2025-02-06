@@ -15,6 +15,13 @@
                 <i class="fas fa-moon"></i>
             </button>
         </div>
+        <div id="focus-modal" class="modal">
+            <div class="modal-content">
+                <h2>What are you focusing on?</h2>
+                <textarea id="focus-input" placeholder="Enter your focus for this session..."></textarea>
+                <button id="start-focus">Start Focusing</button>
+            </div>
+        </div>
         <div class="main-container">
             <div class="timer-section">
                 <h1>Pomodoro Timer</h1>
@@ -28,6 +35,10 @@
                         <span>Break</span>
                     </button>
                 </div>
+                <div id="current-focus" class="current-focus hidden">
+                    <i class="fas fa-bullseye"></i>
+                    <span id="focus-text"></span>
+                </div>
                 <div class="timer-controls">
                     <button id="decrease-time"><i class="fas fa-minus"></i></button>
                     <div class="timer">
@@ -38,17 +49,6 @@
                 <div class="controls">
                     <button id="start"><i class="fas fa-play"></i></button>
                     <button id="pause"><i class="fas fa-pause"></i></button>
-                </div>
-            </div>
-            <div class="task-section">
-                <h2>Current Task</h2>
-                <div class="task-input">
-                    <textarea id="task-description" placeholder="What are you working on?"></textarea>
-                    <button id="save-task"><i class="fas fa-save"></i></button>
-                </div>
-                <div class="task-history">
-                    <h3>Task History</h3>
-                    <div id="task-list"></div>
                 </div>
             </div>
         </div>
