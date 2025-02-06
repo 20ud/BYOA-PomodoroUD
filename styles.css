@@ -1,20 +1,16 @@
 :root {
-    --primary: #000ed4;    
-    --secondary: #F8615A;    /* Coral red */
-    --background: #F7FDFC;   /* Light mint tint */
-    --surface: #FFFFFF;      /* Pure white */
-    --text: #1B2D45;        /* Deep blue-grey */
-    --text-secondary: #5C7184; /* Medium blue-grey */
+    --primary: #0037ff;
+    --secondary: #6B7280;
+    --surface: #FFFFFF;
+    --text: #1F2937;
+    --text-secondary: #6B7280;
 }
 
 
 [data-theme="dark"] {
-    --primary: #00D4C4;
-    --secondary: #FF7A74;
-    --background: #1A1A1A;
-    --surface: #2D2D2D;
-    --text: #FFFFFF;
-    --text-secondary: #BBBBBB;
+    --surface: #1F2937;
+    --text: #F9FAFB;
+    --text-secondary: #9CA3AF;
 }
 
 body {
@@ -138,12 +134,11 @@ h1 {
 }
 
 .main-container {
+    padding-top: 4rem;
+    min-height: calc(100vh - 4rem);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 2rem;
-    padding-top: 4rem;
 }
 
 .timer-section {
@@ -535,8 +530,8 @@ function setBreakMode() {
 }
 
 .banner {
-    background-color: var(--primary);
-    color: white;
+    background-color: #0037ff;
+    color: #FFFFFF;
     text-align: center;
     padding: 0.8rem 2rem;
     font-weight: 500;
@@ -546,6 +541,7 @@ function setBreakMode() {
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     z-index: 999;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
