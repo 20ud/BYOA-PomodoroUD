@@ -11,12 +11,6 @@ const workModeBtn = document.getElementById('work-mode');
 const breakModeBtn = document.getElementById('break-mode');
 const increaseTimeBtn = document.getElementById('increase-time');
 const decreaseTimeBtn = document.getElementById('decrease-time');
-const taskInput = document.getElementById('task-description');
-const saveTaskBtn = document.getElementById('save-task');
-const taskList = document.getElementById('task-list');
-const themeToggleBtn = document.getElementById('theme-toggle-btn');
-
-// Remove task-related DOM elements and keep only focus-related ones
 const focusModal = document.getElementById('focus-modal');
 const focusInput = document.getElementById('focus-input');
 const startFocusBtn = document.getElementById('start-focus');
@@ -32,13 +26,11 @@ timeLeft = WORK_TIME;
 // Store focus history in localStorage
 let focusHistory = JSON.parse(localStorage.getItem('focusHistory') || '[]');
 
-// Timer Functions
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     minutesDisplay.textContent = minutes.toString().padStart(2, '0');
     secondsDisplay.textContent = seconds.toString().padStart(2, '0');
-    document.title = `${minutes}:${seconds.toString().padStart(2, '0')} - Pomodoro Timer`;
 }
 
 function startTimer() {
@@ -47,7 +39,6 @@ function startTimer() {
             focusModal.style.display = 'flex';
             focusModal.classList.add('show');
         } else {
-            // Start break timer directly without focus prompt
             timerId = setInterval(() => {
                 timeLeft--;
                 updateDisplay();
@@ -66,25 +57,13 @@ function startTimer() {
 function startFocusSession() {
     const focusDescription = focusInput.value.trim();
     if (focusDescription) {
-        // Save to focus history
-        const focus = {
-            description: focusDescription,
-            timestamp: new Date().toISOString(),
-            mode: isWorkTime ? 'work' : 'break'
-        };
-        focusHistory.unshift(focus);
-        localStorage.setItem('focusHistory', JSON.stringify(focusHistory));
-        
-        // Display current focus
         focusText.textContent = focusDescription;
         currentFocus.classList.remove('hidden');
         
-        // Hide modal and clear input
         focusModal.style.display = 'none';
         focusModal.classList.remove('show');
         focusInput.value = '';
         
-        // Start the actual timer
         timerId = setInterval(() => {
             timeLeft--;
             updateDisplay();
@@ -109,7 +88,6 @@ function pauseTimer() {
     }
 }
 
-// Mode Toggle
 function setWorkMode() {
     clearInterval(timerId);
     timerId = null;
@@ -134,7 +112,14 @@ function setBreakMode() {
     updateDisplay();
 }
 
-// Time Adjustment
+// Event Listeners
+startButton.addEventListener('click', startTimer);
+pauseButton.addEventListener('click', pauseTimer);
+workModeBtn.addEventListener('click', setWorkMode);
+breakModeBtn.addEventListener('click', setBreakMode);
+startFocusBtn.addEventListener('click', startFocusSession);
+
+// Time adjustment
 increaseTimeBtn.addEventListener('click', () => {
     if (!timerId) {
         timeLeft += 5 * 60;
@@ -149,19 +134,7 @@ decreaseTimeBtn.addEventListener('click', () => {
     }
 });
 
-// Theme Toggle
-themeToggleBtn.addEventListener('click', () => {
-    document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
-});
-
-// Add event listeners
-startButton.addEventListener('click', startTimer);
-pauseButton.addEventListener('click', pauseTimer);
-workModeBtn.addEventListener('click', setWorkMode);
-breakModeBtn.addEventListener('click', setBreakMode);
-startFocusBtn.addEventListener('click', startFocusSession);
-
-// Allow closing modal with Escape key
+// Modal controls
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && focusModal.style.display === 'flex') {
         focusModal.style.display = 'none';
@@ -170,7 +143,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Allow starting focus with Enter key
 focusInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();

@@ -143,6 +143,7 @@ h1 {
     align-items: center;
     min-height: 100vh;
     padding: 2rem;
+    padding-top: 4rem;
 }
 
 .timer-section {
@@ -243,12 +244,6 @@ h1 {
     margin-top: 2rem;
     color: var(--text-secondary);
     font-style: italic;
-}
-
-.theme-toggle {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
 }
 
 /* Add these styles to your existing CSS */
@@ -379,8 +374,6 @@ button i {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.2s ease;
 }
 
 .modal.show {
@@ -389,11 +382,12 @@ button i {
 
 .modal-content {
     background-color: var(--surface);
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 16px;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin: 0 1rem;
 }
 
 .modal-content h2 {
@@ -538,4 +532,68 @@ function setBreakMode() {
 /* Add this to ensure proper box model for all elements */
 * {
     box-sizing: border-box;
+}
+
+.banner {
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 0.8rem 2rem;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add responsive padding for mobile */
+@media (max-width: 768px) {
+    .timer-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .modal-content {
+        padding: 1.5rem;
+    }
+}
+
+/* Remove the old theme-toggle position styles */
+.timer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.timer-header h1 {
+    margin: 0;
+    color: var(--text);
+}
+
+#theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#theme-toggle-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+#theme-toggle-btn i {
+    font-size: 1.2rem;
 } 
